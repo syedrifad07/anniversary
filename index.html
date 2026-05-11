@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Anniversary 💕</title>
+<link href="https://fonts.cdnfonts.com/css/sunny-script" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/papernotes" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/autography" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --rose: #ff6b9d;
+  --blush: #ffb3cc;
+  --deep: #0c061a;
+  --ink: #3d2b1f; 
+}
+
+body{
+  min-height:100vh;
+  background:var(--deep);
+  font-family: sans-serif;
+  overflow:hidden;
+  position:relative;
+}
+
+/* ── STARS & PETALS ── */
+.star{ position:fixed; background:#fff; border-radius:50%; animation:twinkle ease-in-out infinite; pointer-events:none; z-index:1; }
+@keyframes twinkle{ 0%,100%{opacity:.08;} 50%{opacity:.95;} }
+
+.petal{ position:fixed; pointer-events:none; z-index:2; animation:petalFall linear forwards; }
+@keyframes petalFall{ 0%{transform:translateY(-40px) rotate(0deg);opacity:0;} 6%{opacity:.85;} 100%{transform:translateY(110vh) rotate(360deg);opacity:0;} }
+
+.stage{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:20;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .9s ease;
+}
+.stage.active{opacity:1;pointer-events:all;}
+
+/* ── BUTTON STYLES ── */
+.btn-style{
+  font-size:20px;
+  color:var(--blush);
+  background:transparent;
+  border:1.5px solid rgba(255,107,157,.4);
+  padding:12px 40px;
+  border-radius:50px;
+  cursor:pointer;
+  transition:all .35s ease;
+  margin-top: 20px;
+}
+.btn-style:hover{ background:rgba(255,107,157,.1); transform:scale(1.05); }
+
+/* ── STAGE 1: HELLO ── */
+.hello-text{ font-family: 'Sunny Script', cursive; font-size: clamp(42px, 8.5vw, 82px); color: #fff; opacity: 0; }
+@keyframes helloIn{ 0%{opacity:0;transform:scale(.8);} 100%{opacity:1;transform:scale(1);} }
+
+/* ── STAGE 2: VINTAGE PAPER ── */
+#s2{overflow-y:auto; padding:40px 20px;}
+.paper{
+  background: #f4e4bc;
+  background-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 100%), url('https://www.transparenttextures.com/patterns/parchment.png');
+  width: 95vw; max-width: 500px; padding: 50px 40px; position: relative;
+  box-shadow: 0 0 25px rgba(0,0,0,0.6), inset 0 0 60px rgba(139, 69, 19, 0.2);
+  border: 1px solid #d4c39d; clip-path: inset(50% 0 50% 0); opacity: 0;
+  transition: clip-path 2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+  display: flex; flex-direction: column;
+}
+.paper.unroll{ clip-path: inset(0% 0 0% 0); opacity: 1; }
+.note-text{ font-family: 'Papernotes', cursive; font-size: 24px; color: var(--ink); line-height: 1.5; margin-bottom: 10px; }
+.signature { font-family: 'Autography', cursive; font-size: 42px; color: #7a1a1a; text-align: right; opacity: 0; transition: opacity 1.5s ease 1s; }
+#nextBtn { opacity: 0; transition: opacity 1s ease 2s; align-self: center; }
+
+/* ── STAGE 3: PHOTOS (POLAROID) ── */
+.polaroid{
+  background:#fff;
+  padding: 12px 12px 45px 12px; /* White frame like polaroid */
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  width: 170px;
+  opacity: 0;
+  transition: 1.2s ease;
+  border-radius: 4px; /* Optional: frame keo ektu round kora holo */
+}
+.polaroid img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover; /* Chobi jate stretch na hoy */
+  display: block;
+  
+  /* 🟢 EIJE! EKHANE CHOBI KE ROUND KORA HOLO 🟢 */
+  border-radius: 6px; /* Halka round corner chobir jonno */
+}
+.anniv{ font-family: 'Sunny Script', cursive; font-size:clamp(36px,7vw,66px); color:#fff; opacity:0; transition:opacity 1.8s ease; margin-top: 30px; }
+.anniv.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<div class="stage active" id="s0">
+  <button class="btn-style" id="readyBtn">✨ Ready? ✨</button>
+</div>
+
+<div class="stage" id="s1">
+  <h1 class="hello-text" id="helloText">Hello My Love</h1>
+</div>
+
+<div class="stage" id="s2">
+  <div class="paper" id="paper">
+    <div class="note-text">
+      Suzui,<br><br>
+      Every day with you is a gift that I cherish more than words can express. 
+      You are the most beautiful part of my life, my peace, and my happiest adventure.<br><br>
+      I fall in love with you again and again, every single day. 
+      Thank you for being you.<br><br>
+      Sorry For All The Mistakes I have Done 😊 <br><br>
+      Yours, forever and always 💕
+    </div>
+    <span class="signature" id="signature">Rifad</span>
+    <button class="btn-style" id="nextBtn" style="color: #3d2b1f; border-color: #3d2b1f;">Next 💕</button>
+  </div>
+</div>
+
+<div class="stage" id="s3">
+  <div style="display:flex; gap:20px; flex-wrap:wrap; justify-content:center;">
+    
+    <div class="polaroid" id="pol1" style="transform: rotate(-6deg);">
+      <img src="CHOBI_LINK_1.jpg" alt="Memory 1">
+    </div>
+
+    <div class="polaroid" id="pol2" style="transform: rotate(6deg);">
+      <img src="CHOBI_LINK_2.jpg" alt="Memory 2">
+    </div>
+
+  </div>
+  <div class="anniv" id="anniv">Happy Anniversary 💖</div>
+</div>
+
+<script>
+/* Star & Petal Scripts */
+for(let i=0;i<65;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  s.style.cssText=`width:2px;height:2px;left:${Math.random()*100}vw;top:${Math.random()*100}vh;animation-duration:3s;`;
+  document.body.appendChild(s);
+}
+setInterval(()=>{
+  const p=document.createElement('div');
+  p.className='petal'; p.textContent='🌸';
+  p.style.cssText=`left:${Math.random()*100}vw;top:-40px;font-size:${Math.random()*15+10}px;animation-duration:${Math.random()*8+6}s;`;
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(), 10000);
+}, 2000);
+
+/* Navigation Logic */
+function go(id){
+  document.querySelectorAll('.stage').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+document.getElementById('readyBtn').addEventListener('click',()=>{
+  go('s1');
+  document.getElementById('helloText').style.animation='helloIn 1.5s forwards';
+  setTimeout(()=>{
+    go('s2');
+    document.getElementById('paper').classList.add('unroll');
+    document.getElementById('signature').style.opacity = '1';
+    document.getElementById('nextBtn').style.opacity = '1';
+  }, 4000);
+});
+
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  go('s3');
+  setTimeout(()=>{
+    document.getElementById('pol1').style.opacity='1';
+    setTimeout(()=>{ document.getElementById('pol2').style.opacity='1'; }, 600);
+    setTimeout(()=>{ document.getElementById('anniv').classList.add('show'); }, 1500);
+  }, 300);
+});
+</script>
+</body>
+</html>
